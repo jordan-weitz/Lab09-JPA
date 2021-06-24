@@ -11,21 +11,24 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import models.User;
+import services.UserService;
 
 public class UserDB {
 
+    UserService userService = new UserService();
+    
     public List<User> getAll() throws Exception {
         List<User> users = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-
+        
         String sql = "SELECT * FROM user";
-
+        
         try {
             ps = con.prepareStatement(sql);
-
+            
             rs = ps.executeQuery();
             while (rs.next()) {
                 String email = rs.getString(1);
@@ -34,8 +37,8 @@ public class UserDB {
                 String lastName = rs.getString(4);
                 String password = rs.getString(5);
                 int role = rs.getInt(6);
-
-                User user = new User(email, active, firstName, lastName, password, role);
+                
+                User user = userService.addNewUser(email, active, firstName, lastName, password, role);
                 users.add(user);
             }
         } finally {
@@ -43,7 +46,7 @@ public class UserDB {
             DBUtil.closePreparedStatement(ps);
             cp.freeConnection(con);
         }
-
+        
         return users;
     }
 
@@ -82,15 +85,15 @@ public class UserDB {
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         String sql = "INSERT INTO user (email, active, first_name,last_name,password,role) VALUES (?, ?, ?, ?, ?, ?)";
-
+        
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getEmail());
             ps.setBoolean(2, user.getActive());
             ps.setString(3, user.getFirstName());
-            ps.setString(3, user.getLastName());
-            ps.setString(3, user.getPassword());
-            ps.setInt(3, user.getRole());
+            ps.setString(4, user.getLastName());
+            ps.setString(5, user.getPassword());
+            ps.setInt(6, user.getRole());
             ps.executeUpdate();
         } finally {
             DBUtil.closePreparedStatement(ps);

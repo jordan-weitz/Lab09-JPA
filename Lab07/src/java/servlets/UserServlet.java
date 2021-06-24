@@ -9,8 +9,11 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import models.User;
+import services.UserService;
 
 public class UserServlet extends HttpServlet {
+
+    UserService userService = new UserService();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,6 +41,7 @@ public class UserServlet extends HttpServlet {
         switch (action) {
             case "saveNewUser": {
                 insertNewUser(request, userDB, response);
+                break;
 
             }
         }
@@ -51,14 +55,16 @@ public class UserServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
         int role = Integer.parseInt(request.getParameter("account_type"));
-        User user = new User(email, true, firstName, lastName, password, role);
+
+        User user = userService.addNewUser(email, true, firstName, lastName, password, role);
 
         try {
             userDB.insert(user);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+//        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+        response.sendRedirect("user");
     }
 
 }
