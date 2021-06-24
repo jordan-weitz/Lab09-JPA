@@ -32,6 +32,33 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String action = request.getParameter("action");
+        UserDB userDB = new UserDB();
+
+        switch (action) {
+            case "saveNewUser": {
+                insertNewUser(request, userDB, response);
+
+            }
+        }
+
+    }
+
+    private void insertNewUser(HttpServletRequest request, UserDB userDB, HttpServletResponse response) throws NumberFormatException, ServletException, IOException {
+        String email = request.getParameter("email");
+        //boolean active = Boolean.parseBoolean(request.getParameter("email"));
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String password = request.getParameter("password");
+        int role = Integer.parseInt(request.getParameter("account_type"));
+        User user = new User(email, true, firstName, lastName, password, role);
+
+        try {
+            userDB.insert(user);
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

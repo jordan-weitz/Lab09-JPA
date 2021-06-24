@@ -77,24 +77,26 @@ public class UserDB {
 //
 //        return note;
 //    }
+    public void insert(User user) throws Exception {
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection con = cp.getConnection();
+        PreparedStatement ps = null;
+        String sql = "INSERT INTO user (email, active, first_name,last_name,password,role) VALUES (?, ?, ?, ?, ?, ?)";
 
-//    public void insert(User user) throws Exception {
-//        ConnectionPool cp = ConnectionPool.getInstance();
-//        Connection con = cp.getConnection();
-//        PreparedStatement ps = null;
-//        String sql = "INSERT INTO note (title, contents, owner) VALUES (?, ?, ?)";
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, user.getTitle());
-//            ps.setString(2, user.getContents());
-//            ps.setString(3, user.getOwner());
-//            ps.executeUpdate();
-//        } finally {
-//            DBUtil.closePreparedStatement(ps);
-//            cp.freeConnection(con);
-//        }
-//    }
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, user.getEmail());
+            ps.setBoolean(2, user.getActive());
+            ps.setString(3, user.getFirstName());
+            ps.setString(3, user.getLastName());
+            ps.setString(3, user.getPassword());
+            ps.setInt(3, user.getRole());
+            ps.executeUpdate();
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            cp.freeConnection(con);
+        }
+    }
 
 //    public void update(User note) throws Exception {
 //        ConnectionPool cp = ConnectionPool.getInstance();
