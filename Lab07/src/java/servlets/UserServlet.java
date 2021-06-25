@@ -46,19 +46,23 @@ public class UserServlet extends HttpServlet {
 
             }
             case "deleteUser": {
-                String deletedValue = request.getParameter("emailToDelete");
+                //String toD = request.getParameter("email");
+                User userToDelete = (User) request.getAttribute("email");
 
-                System.out.println("DDDDDDDDDDDD" + deletedValue);
+                request.setAttribute("userD", "hu");
+                //System.out.println("EMAILL   ...." + userToDelete.getEmail());
+
                 try {
-                    userDB.delete(deletedValue);
+                    userDB.delete(userToDelete.getEmail());
                 } catch (Exception ex) {
                     Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                 response.sendRedirect("user");
+//                 response.sendRedirect("user");
+
                 break;
             }
         }
-
+        response.sendRedirect("user");
     }
 
     private void insertNewUser(HttpServletRequest request, UserDB userDB, HttpServletResponse response) throws NumberFormatException, ServletException, IOException {
@@ -77,7 +81,7 @@ public class UserServlet extends HttpServlet {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 //        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
-        response.sendRedirect("user");
+//        response.sendRedirect("user");
     }
 
 }
