@@ -38,11 +38,24 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
         UserDB userDB = new UserDB();
 
+        //String deleteButton = request.getParameter("delete");
         switch (action) {
             case "saveNewUser": {
                 insertNewUser(request, userDB, response);
                 break;
 
+            }
+            case "deleteUser": {
+                String deletedValue = request.getParameter("emailToDelete");
+
+                System.out.println("DDDDDDDDDDDD" + deletedValue);
+                try {
+                    userDB.delete(deletedValue);
+                } catch (Exception ex) {
+                    Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                 response.sendRedirect("user");
+                break;
             }
         }
 

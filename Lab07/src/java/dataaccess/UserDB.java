@@ -16,19 +16,19 @@ import services.UserService;
 public class UserDB {
 
     UserService userService = new UserService();
-    
+
     public List<User> getAll() throws Exception {
         List<User> users = new ArrayList<>();
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         String sql = "SELECT * FROM user";
-        
+
         try {
             ps = con.prepareStatement(sql);
-            
+
             rs = ps.executeQuery();
             while (rs.next()) {
                 String email = rs.getString(1);
@@ -37,7 +37,7 @@ public class UserDB {
                 String lastName = rs.getString(4);
                 String password = rs.getString(5);
                 int role = rs.getInt(6);
-                
+
                 User user = userService.addNewUser(email, active, firstName, lastName, password, role);
                 users.add(user);
             }
@@ -46,7 +46,7 @@ public class UserDB {
             DBUtil.closePreparedStatement(ps);
             cp.freeConnection(con);
         }
-        
+
         return users;
     }
 
@@ -85,7 +85,7 @@ public class UserDB {
         Connection con = cp.getConnection();
         PreparedStatement ps = null;
         String sql = "INSERT INTO user (email, active, first_name,last_name,password,role) VALUES (?, ?, ?, ?, ?, ?)";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, user.getEmail());
@@ -119,19 +119,19 @@ public class UserDB {
 //        }
 //    }
 //
-//    public void delete(User user) throws Exception {
-//        ConnectionPool cp = ConnectionPool.getInstance();
-//        Connection con = cp.getConnection();
-//        PreparedStatement ps = null;
-//        String sql = "DELETE FROM note WHERE note_id=?";
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, note.getNoteId());
-//            ps.executeUpdate();
-//        } finally {
-//            DBUtil.closePreparedStatement(ps);
-//            cp.freeConnection(con);
-//        }
-//    }
+    public void delete(String email) throws Exception {
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection con = cp.getConnection();
+        PreparedStatement ps = null;
+        String sql = "DELETE FROM user WHERE email=?";
+
+        try {
+            ps = con.prepareStatement(sql);
+
+            ps.executeUpdate();
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            cp.freeConnection(con);
+        }
+    }
 }

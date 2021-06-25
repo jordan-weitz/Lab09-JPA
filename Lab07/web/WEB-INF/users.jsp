@@ -45,7 +45,7 @@
             </form>
         </div>
         <div class="container">
-            <form action="">
+            <form method="post" action="user" >
 
 
 
@@ -65,13 +65,17 @@
                     <c:if test="${users.size()!=0}">
 
                         <c:forEach items="${users}" var="user">
-                            <span>${user.email}</span>
+                            <span name="emailToDelete" value="${user.email}">${user.email}</span>
                             <span>${user.firstName}</span>
                             <span>${user.lastName}</span>
                             <span>${user.role}</span>
                             <input type="submit" value="Edit">
+                            <input type="hidden" name="action" value="editUser"> 
+
                             <input type="submit" value="Delete">
+                            <input type="hidden" action="delete" value="deleteUser"> 
                             <br>
+
                         </c:forEach>
 
                     </c:if>
@@ -79,8 +83,10 @@
 
                 </ul>
             </form>
+
         </div>
         <div class="container">
+
             <h2>Edit User</h2>
             <form action="">
 
@@ -94,7 +100,11 @@
                     <option value="3">Company Admin</option>
                 </select>
 
+                <input type="submit" value="Save">
+                <input type="hidden" name="action" value="SaveChanges">
 
+                <input type="submit" value="Cancel">
+                <input type="hidden" name="action" value="cancel"> 
             </form>
         </div>
 
