@@ -16,7 +16,8 @@
     </head>
     <body>
         <div class="flex-container">
-            <div class="flex-child" style="text-align: center;">
+            <div class="flex-child" style="text-align: center">
+                <div class="center">
                     <h2>Add User</h2>
                     <form method="post" action="user">
 
@@ -45,13 +46,13 @@
                     <br>
                     <h2>Edit User</h2>
                     <form action="">
-                        <input type="text" name="" id="" placeholder="example@email.com">
+                        <input type="text" name="" id="" value="${userEmail}" placeholder="example@email.com">
                         <br><br>
-                        <input type="text" name="" id="" placeholder="First Name">
+                        <input type="text" name="" id="" ${userFirstName} placeholder="First Name">
                         <br><br>
-                        <input type="text" name="" id="" placeholder="Last Name">
+                        <input type="text" name="" id=""${userLastName} placeholder="Last Name">
                         <br><br>
-                        <select name="account_type" id="">
+                        <select name="account_type" id="" value="${userRole}">
                             <option value="1">System Admin</option>
                             <option value="2">Regular User</option>
                             <option value="3">Company Admin</option>
@@ -63,11 +64,13 @@
                         <input type="submit" value="Cancel">
                         <input type="hidden" name="action" value="cancel"> 
                     </form>
+                </div>
             </div>
 
             <div class="flex-child">
                 <h1>Manage Users</h1>
                 <form method="post" action="user"  >
+
                     <div class="table_headers">
                         <span>Email </span>
                         <span>  FirstName</span>
@@ -80,22 +83,24 @@
 
                         <c:if test="${users.size()!=0}">
                             <c:forEach items="${users}" var="user">
-                                <span name="email" >${user.email}</span>
-                                <span>${user.firstName}</span>
-                                <span>${user.lastName}</span>
-                                <span>${user.role}</span>
-                                <input type="submit" value="Edit">
-                                <input type="hidden" name="action" value="editUser"> 
+                                <form method="post" action="user">
 
-                                <input type="submit" value="Delete">
-                                <input type="hidden" name="action" value="deleteUser"> 
-                                <br>
+                                    <span name="email" >${user.email}</span>
+                                    <span>${user.firstName}</span>
+                                    <span>${user.lastName}</span>
+                                    <span>${user.role}</span>
+
+                                    <input type="button" value="Edit">
+                                    <input type="hidden" name="editButton" value="${user.email}"> 
+
+                                    <input type="submit" value="Delete">
+                                    <input type="hidden" name="deleteUser" value="${user.email}"> 
+                                    <br>
+                                </form>
+
                             </c:forEach>
                         </c:if>
-                    </ul>
-
-                </form>
-                <p>user ${userD}</p>
+                    </ul>               
             </div>
         </div>
     </body>

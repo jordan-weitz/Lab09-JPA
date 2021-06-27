@@ -50,36 +50,37 @@ public class UserDB {
         return users;
     }
 
-//    public User get(String email) throws Exception {
-//        User note = null;
-//        ConnectionPool conPool = ConnectionPool.getInstance();
-//        Connection con = conPool.getConnection();
-//        PreparedStatement ps = null;
-//        ResultSet rs = null;
-//        String sql = "SELECT * FROM note WHERE note_id=?";
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setInt(1, noteId);
-//            rs = ps.executeQuery();
-//            if (rs.next()) {
-//                String email = rs.getString(1);
-//                boolean active = rs.getBoolean(2);
-//                String firstName = rs.getString(3);
-//                String lastName = rs.getString(4);
-//                String password = rs.getString(5);
-//                int role = rs.getInt(6);
-//
-//                User user = new User(email, active, firstName, lastName, password, role);
-//            }
-//        } finally {
-//            DBUtil.closeResultSet(rs);
-//            DBUtil.closePreparedStatement(ps);
-//            conPool.freeConnection(con);
-//        }
-//
-//        return note;
-//    }
+    public User get(String email) throws Exception {
+        User user = null;
+        ConnectionPool conPool = ConnectionPool.getInstance();
+        Connection con = conPool.getConnection();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM user WHERE email=?";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                //String email = rs.getString(1);
+                boolean active = rs.getBoolean(2);
+                String firstName = rs.getString(3);
+                String lastName = rs.getString(4);
+                String password = rs.getString(5);
+                int role = rs.getInt(6);
+
+                user = new User(email, active, firstName, lastName, password, role);
+            }
+        } finally {
+            DBUtil.closeResultSet(rs);
+            DBUtil.closePreparedStatement(ps);
+            conPool.freeConnection(con);
+        }
+
+        return user;
+    }
+
     public void insert(User user) throws Exception {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
@@ -118,7 +119,6 @@ public class UserDB {
 //            cp.freeConnection(con);
 //        }
 //    }
-//
     public void delete(String email) throws Exception {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();

@@ -38,31 +38,46 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
         UserDB userDB = new UserDB();
 
-        //String deleteButton = request.getParameter("delete");
-        switch (action) {
-            case "saveNewUser": {
-                insertNewUser(request, userDB, response);
-                break;
+        String deleteButton = request.getParameter("deleteUser");
+        String editButton = request.getParameter("editButton");
 
+        if (deleteButton != null) {
+
+            deleteUser(request, userDB);
+
+        } else if (editButton != null) {
+            String userToEditEmail;
+            userToEditEmail = request.getParameter("editButton").toString();
+            try {
+                User userToEdit = userDB.get(userToEditEmail);
+                request.setAttribute("UserEmail", userToEdit.getEmail());
+                request.setAttribute("userFirstName", userToEdit.getFirstName());
+                request.setAttribute("userLastName", userToEdit.getLastName());
+                request.setAttribute("userRole", userToEdit.getRole());
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-            case "deleteUser": {
-                //String toD = request.getParameter("email");
-                User userToDelete = (User) request.getAttribute("email");
 
-                request.setAttribute("userD", "hu");
-                //System.out.println("EMAILL   ...." + userToDelete.getEmail());
-
-                try {
-                    userDB.delete(userToDelete.getEmail());
-                } catch (Exception ex) {
-                    Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-                }
-//                 response.sendRedirect("user");
-
-                break;
-            }
         }
+//        switch (action) {
+//            case "saveNewUser": {
+//                insertNewUser(request, userDB, response);
+//                break;
+//
+//            }
+//        }
+
         response.sendRedirect("user");
+    }
+
+    private void deleteUser(HttpServletRequest request, UserDB userDB) {
+        String userEmailToDelete;
+        userEmailToDelete = request.getParameter("deleteUser").toString();
+        try {
+            userDB.delete(userEmailToDelete);
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     private void insertNewUser(HttpServletRequest request, UserDB userDB, HttpServletResponse response) throws NumberFormatException, ServletException, IOException {

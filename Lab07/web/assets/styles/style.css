@@ -15,6 +15,10 @@ body {
     margin-right: 1px;
 }
 
+/*.center {
+    text-align: center;
+}*/
+
 input, select {
-    border-radius: 4px;
+    border-radius: 2px;
 }
