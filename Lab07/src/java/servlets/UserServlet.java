@@ -36,6 +36,7 @@ public class UserServlet extends HttpServlet {
         String deleteButton = request.getParameter("deleteUser");
         String editButton = request.getParameter("editButton");
         String saveUserNewInfo = request.getParameter("saveUserInfo");
+        String saveUserButton = request.getParameter("saveNewUser");
 
         generateUsers(userDB, request);
         if (deleteButton != null) {
@@ -73,14 +74,9 @@ public class UserServlet extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if (saveUserButton != null) {
+            insertNewUser(request, userDB, response);
         }
-//        switch (action) {
-//            case "saveNewUser": {
-//                insertNewUser(request, userDB, response);
-//                break;
-//
-//            }
-//        }
 
         response.sendRedirect("user");
     }
