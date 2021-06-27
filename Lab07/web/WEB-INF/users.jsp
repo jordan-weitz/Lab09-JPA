@@ -16,7 +16,7 @@
     </head>
     <body>
         <div class="flex-container">
-            <div class="flex-child" style="text-align: center">
+            <div class="flex-child">
                 <div class="center">
                     <h2>Add User</h2>
                     <form method="post" action="user">
@@ -31,7 +31,7 @@
                         <input type="text" name="lastName" id="" required>
                         <br><br>
                         <label for="password">Password: </label>
-                        <input type="text" name="password" id="" required> 
+                        <input type="password" name="password" id="" required> 
                         <br><br>
                         <select name="account_type" id="">
                             <option value="1">System Admin</option>
