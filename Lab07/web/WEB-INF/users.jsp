@@ -48,10 +48,10 @@
                     <h2>Edit User</h2>
                     <form method="post" action="user">
 
-                        <input type="text" name="email" id="" value="${userEmail}" placeholder="example@email.com">
+                        <input type="text" name="email" id="" value="${userEmail}"  readonly>
 
                         <br><br>
-                        <input type="text" name="fistName" id="" value="${userFirstName}" placeholder="First Name">
+                        <input type="text" name="firstName" id="" value="${userFirstName}" placeholder="First Name">
                         <br><br>
                         <input type="text" name="lastName" id=""value="${userLastName}" placeholder="Last Name">
                         <br><br>
@@ -65,9 +65,13 @@
                             <input type="submit" value="Save">
                             <input type="hidden" name="saveUserInfo" value="${userEmail}">
 
-                        <input type="reset" value="Cancel">
+
 
                     </form>
+                    <form method="post" action="user">
+                        <input type="submit" name="clearFields" value="Cancel">
+                    </form>  
+                    <p>${errorMessage}</p>
                 </div>
 
             </div>

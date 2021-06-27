@@ -37,6 +37,7 @@ public class UserServlet extends HttpServlet {
         String editButton = request.getParameter("editButton");
         String saveUserNewInfo = request.getParameter("saveUserInfo");
         String saveUserButton = request.getParameter("saveNewUser");
+        String clearFields = request.getParameter("clearFields");
 
         generateUsers(userDB, request);
         if (deleteButton != null) {
@@ -59,11 +60,29 @@ public class UserServlet extends HttpServlet {
             }
 
         } else if (saveUserNewInfo != null) {
-            String emailToBeUpdated = request.getParameter("saveUserInfo");
+            saveUserNewInfo(request, userDB, response);
+
+        } else if (saveUserButton != null) {
+
+            insertNewUser(request, userDB, response);
+        } else if (clearFields != null) {
+
+            getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+        }
+
+        response.sendRedirect("user");
+    }
+
+    private void saveUserNewInfo(HttpServletRequest request, UserDB userDB, HttpServletResponse response) {
+        String emailToBeUpdated = request.getParameter("saveUserInfo");
+
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+
+        if (emailToBeUpdated != null && firstName != null && lastName != null) {
+
             try {
                 User userToBeUpdated = userDB.get(emailToBeUpdated);
-                String firstName = request.getParameter("firstName");
-                String lastName = request.getParameter("lastName");
                 int role = Integer.parseInt(request.getParameter("account_type"));
                 userToBeUpdated.setFirstName(firstName);
                 userToBeUpdated.setLastName(lastName);
@@ -74,11 +93,7 @@ public class UserServlet extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else if (saveUserButton != null) {
-            insertNewUser(request, userDB, response);
         }
-
-        response.sendRedirect("user");
     }
 
     private void deleteUser(HttpServletRequest request, UserDB userDB) {
@@ -106,14 +121,20 @@ public class UserServlet extends HttpServlet {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
-        int role = Integer.parseInt(request.getParameter("account_type"));
 
-        User user = userService.addNewUser(email, true, firstName, lastName, password, role);
+        if (email != null && firstName != null && lastName != null && password != null) {
 
-        try {
-            userDB.insert(user);
-        } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            int role = Integer.parseInt(request.getParameter("account_type"));
+
+            User user = userService.addNewUser(email, true, firstName, lastName, password, role);
+
+            try {
+                userDB.insert(user);
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            request.setAttribute("errorMessage", "Please fill all fields");
         }
 //        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
 //        response.sendRedirect("user");
