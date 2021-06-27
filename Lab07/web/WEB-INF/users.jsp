@@ -10,12 +10,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Manage Users</title>
         <link rel="stylesheet" href="./assets/styles/style.css">
     </head>
     <body>
-        <h1>Users</h1>
-
+        <h1>Manage Users</h1>
 
         <div class="container">
             <h2>Add User</h2>
@@ -45,13 +44,8 @@
             </form>
         </div>
         <div class="container">
-            
-            
-            
             <form method="post" action="user"  >
-
                 <h2>Manage Users</h2>
-
                 <div class="table_headers">
                     <span>Email </span>
                     <span>  FirstName</span>
@@ -63,7 +57,6 @@
                 <ul>
 
                     <c:if test="${users.size()!=0}">
-
                         <c:forEach items="${users}" var="user">
                             <span name="email" >${user.email}</span>
                             <span>${user.firstName}</span>
@@ -75,14 +68,10 @@
                             <input type="submit" value="Delete">
                             <input type="hidden" name="action" value="deleteUser"> 
                             <br>
-
                         </c:forEach>
-
                     </c:if>
-
-
                 </ul>
-               
+        
             </form>
              <p>user ${userD}</p>
 
