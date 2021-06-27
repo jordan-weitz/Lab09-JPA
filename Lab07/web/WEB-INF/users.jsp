@@ -15,59 +15,58 @@
         <link rel="stylesheet" href="./assets/styles/style.css">
     </head>
     <body>
-        <h1>Manage Users</h1>
         <div class="flex-container">
-            <div class="flex-child">
-                <h2>Add User</h2>
-                <form method="post" action="user">
+            <div class="flex-child" style="text-align: center;">
+                    <h2>Add User</h2>
+                    <form method="post" action="user">
 
-                    <label for="email">Email: </label>
-                    <input type="email" name="email" id="" required>
-                    <br><br>
-                    <label for="first_name">First Name: </label>
-                    <input type="text" name="firstName" id="" required>
-                    <br><br>
-                    <label for="last_name">Last Name: </label>
-                    <input type="text" name="lastName" id="" required>
-                    <br><br>
-                    <label for="password">Password: </label>
-                    <input type="text" name="password" id="" required> 
-                    <br><br>
-                    <select name="account_type" id="">
-                        <option value="1">System Admin</option>
-                        <option value="2">Regular User</option>
-                        <option value="3">Company Admin</option>
-                    </select>
+                        <label for="email">Email: </label>
+                        <input type="email" name="email" id="" required>
+                        <br><br>
+                        <label for="first_name">First Name: </label>
+                        <input type="text" name="firstName" id="" required>
+                        <br><br>
+                        <label for="last_name">Last Name: </label>
+                        <input type="text" name="lastName" id="" required>
+                        <br><br>
+                        <label for="password">Password: </label>
+                        <input type="text" name="password" id="" required> 
+                        <br><br>
+                        <select name="account_type" id="">
+                            <option value="1">System Admin</option>
+                            <option value="2">Regular User</option>
+                            <option value="3">Company Admin</option>
+                        </select>
 
-                    <input type="submit" value="Save">
-                    <input type="hidden" name="action" value="saveNewUser"> 
+                        <input type="submit" value="Save">
+                        <input type="hidden" name="action" value="saveNewUser"> 
 
-                </form>
+                    </form>
+                    <br>
+                    <h2>Edit User</h2>
+                    <form action="">
+                        <input type="text" name="" id="" placeholder="example@email.com">
+                        <br><br>
+                        <input type="text" name="" id="" placeholder="First Name">
+                        <br><br>
+                        <input type="text" name="" id="" placeholder="Last Name">
+                        <br><br>
+                        <select name="account_type" id="">
+                            <option value="1">System Admin</option>
+                            <option value="2">Regular User</option>
+                            <option value="3">Company Admin</option>
+                        </select>
 
-                <h2>Edit User</h2>
-                <form action="">
+                        <input type="submit" value="Save">
+                        <input type="hidden" name="action" value="SaveChanges">
 
-                    <input type="text" name="" id="" placeholder="example@email.com">
-                    <br><br>
-                    <input type="text" name="" id="" placeholder="First Name">
-                    <br><br>
-                    <input type="text" name="" id="" placeholder="Last Name">
-                    <br><br>
-                    <select name="account_type" id="">
-                        <option value="1">System Admin</option>
-                        <option value="2">Regular User</option>
-                        <option value="3">Company Admin</option>
-                    </select>
-
-                    <input type="submit" value="Save">
-                    <input type="hidden" name="action" value="SaveChanges">
-
-                    <input type="submit" value="Cancel">
-                    <input type="hidden" name="action" value="cancel"> 
-                </form>
+                        <input type="submit" value="Cancel">
+                        <input type="hidden" name="action" value="cancel"> 
+                    </form>
             </div>
 
             <div class="flex-child">
+                <h1>Manage Users</h1>
                 <form method="post" action="user"  >
                     <div class="table_headers">
                         <span>Email </span>
