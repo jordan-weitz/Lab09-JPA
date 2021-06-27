@@ -20,12 +20,7 @@ public class UserServlet extends HttpServlet {
             throws ServletException, IOException {
 
         UserDB userDB = new UserDB();
-        try {
-            List<User> users = userDB.getAll();
-            request.setAttribute("users", users);
-        } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        generateUsers(userDB, request);
 
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
 
@@ -35,12 +30,14 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String action = request.getParameter("action");
+        //String action = request.getParameter("action");
         UserDB userDB = new UserDB();
 
         String deleteButton = request.getParameter("deleteUser");
         String editButton = request.getParameter("editButton");
+        String saveUserNewInfo = request.getParameter("saveUserInfo");
 
+        generateUsers(userDB, request);
         if (deleteButton != null) {
 
             deleteUser(request, userDB);
@@ -50,14 +47,32 @@ public class UserServlet extends HttpServlet {
             userToEditEmail = request.getParameter("editButton").toString();
             try {
                 User userToEdit = userDB.get(userToEditEmail);
-                request.setAttribute("UserEmail", userToEdit.getEmail());
+                request.setAttribute("userEmail", userToEdit.getEmail());
                 request.setAttribute("userFirstName", userToEdit.getFirstName());
                 request.setAttribute("userLastName", userToEdit.getLastName());
                 request.setAttribute("userRole", userToEdit.getRole());
+                getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        } else if (saveUserNewInfo != null) {
+            String emailToBeUpdated = request.getParameter("saveUserInfo");
+            try {
+                User userToBeUpdated = userDB.get(emailToBeUpdated);
+                String firstName = request.getParameter("firstName");
+                String lastName = request.getParameter("lastName");
+                int role = Integer.parseInt(request.getParameter("account_type"));
+                userToBeUpdated.setFirstName(firstName);
+                userToBeUpdated.setLastName(lastName);
+                userToBeUpdated.setRole(role);
+                userDB.update(userToBeUpdated);
+                getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+
+            } catch (Exception ex) {
+                Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 //        switch (action) {
 //            case "saveNewUser": {
@@ -75,6 +90,15 @@ public class UserServlet extends HttpServlet {
         userEmailToDelete = request.getParameter("deleteUser").toString();
         try {
             userDB.delete(userEmailToDelete);
+        } catch (Exception ex) {
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void generateUsers(UserDB userDB, HttpServletRequest request) {
+        try {
+            List<User> users = userDB.getAll();
+            request.setAttribute("users", users);
         } catch (Exception ex) {
             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }

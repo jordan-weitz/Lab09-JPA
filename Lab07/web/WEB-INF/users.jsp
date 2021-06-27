@@ -45,25 +45,29 @@
                 </form>
 
                 <h2>Edit User</h2>
-                <form action="">
+                <form method="post" action="user">
 
-                    <input type="text" name="" id="" value="${userEmail}" placeholder="example@email.com">
-                    <br><br>
-                    <input type="text" name="" id="" ${userFirstName} placeholder="First Name">
-                    <br><br>
-                    <input type="text" name="" id=""${userLastName} placeholder="Last Name">
-                    <br><br>
-                    <select name="account_type" id="" value="${userRole}">
-                        <option value="1">System Admin</option>
-                        <option value="2">Regular User</option>
-                        <option value="3">Company Admin</option>
-                    </select>
+                    <input type="text" name="email" id="" value="${userEmail}" placeholder="example@email.com">
 
-                    <input type="submit" value="Save">
-                    <input type="hidden" name="action" value="SaveChanges">
+                    <br><br>
+                    <input type="text" name="fistName" id="" value="${userFirstName}" placeholder="First Name">
+                    <br><br>
+                    <input type="text" name="lastName" id=""value="${userLastName}" placeholder="Last Name">
+                    <br><br>
+                    <select name="account_type" id=""   value="${userRole}">
 
-                    <input type="submit" value="Cancel">
-                    <input type="hidden" name="action" value="cancel"> 
+
+
+                        <option value="1"    <c:if test = "${userRole ==1}">selected</c:if> >System Admin</option>
+                        <option value="2"  <c:if test = "${userRole ==2}">selected</c:if>>Regular User</option>
+                        <option value="3"  <c:if test = "${userRole ==3}">selected</c:if>>Company Admin</option>
+                        </select>
+
+                        <input type="submit" value="Save">
+                        <input type="hidden" name="saveUserInfo" value="${userEmail}">
+
+                    <input type="reset" value="Cancel">
+
                 </form>
             </div>
 
@@ -82,18 +86,21 @@
                     <c:if test="${users.size()!=0}">
                         <c:forEach items="${users}" var="user">
                             <form method="post" action="user">
-                                
+
                                 <span name="email" >${user.email}</span>
                                 <span>${user.firstName}</span>
                                 <span>${user.lastName}</span>
                                 <span>${user.role}</span>
 
-                                <input type="button" value="Edit">
-                                <input type="hidden" name="editButton" value="${user.email}"> 
 
-                                <input type="submit" value="Delete">
+
+                                <input type="submit" value="Edit">
+                                <input type="hidden" name="editButton" value="${user.email}"> 
+                            </form>
+                            <form method="post" action="user">
+                                <input type="submit" value="Delete" name>
                                 <input type="hidden" name="deleteUser" value="${user.email}"> 
-                                <br>
+
                             </form>
 
                         </c:forEach>
@@ -101,7 +108,7 @@
                 </ul>
 
 
-               
+
             </div>
         </div>
     </body>

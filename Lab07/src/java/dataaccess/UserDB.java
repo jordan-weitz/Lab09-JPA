@@ -102,23 +102,26 @@ public class UserDB {
         }
     }
 
-//    public void update(User note) throws Exception {
-//        ConnectionPool cp = ConnectionPool.getInstance();
-//        Connection con = cp.getConnection();
-//        PreparedStatement ps = null;
-//        String sql = "UPDATE note SET title=?, contents=? WHERE note_id=?";
-//
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, note.getTitle());
-//            ps.setString(2, note.getContents());
-//            ps.setInt(3, note.getNoteId());
-//            ps.executeUpdate();
-//        } finally {
-//            DBUtil.closePreparedStatement(ps);
-//            cp.freeConnection(con);
-//        }
-//    }
+    public void update(User user) throws Exception {
+        ConnectionPool cp = ConnectionPool.getInstance();
+        Connection con = cp.getConnection();
+        PreparedStatement ps = null;
+        String sql = "UPDATE user SET first_name=?, last_name=? role=?  WHERE email=?";
+
+        try {
+
+            ps = con.prepareStatement(sql);
+            ps.setString(1, user.getFirstName());
+            ps.setString(2, user.getLastName());
+            ps.setInt(3, user.getRole());
+            ps.setString(4, user.getEmail());
+            ps.executeUpdate();
+        } finally {
+            DBUtil.closePreparedStatement(ps);
+            cp.freeConnection(con);
+        }
+    }
+
     public void delete(String email) throws Exception {
         ConnectionPool cp = ConnectionPool.getInstance();
         Connection con = cp.getConnection();
