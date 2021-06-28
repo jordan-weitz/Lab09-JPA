@@ -61,6 +61,10 @@ public class UserServlet extends HttpServlet {
 
         } else if (saveUserNewInfo != null) {
             saveUserNewInfo(request, userDB, response);
+            generateUsers(userDB, request);
+            getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+            
+            return;
 
         } else if (saveUserButton != null) {
 
@@ -70,7 +74,7 @@ public class UserServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         }
 
-        response.sendRedirect("user");
+//        response.sendRedirect("user");
     }
 
     private void saveUserNewInfo(HttpServletRequest request, UserDB userDB, HttpServletResponse response) {
@@ -88,7 +92,7 @@ public class UserServlet extends HttpServlet {
                 userToBeUpdated.setLastName(lastName);
                 userToBeUpdated.setRole(role);
                 userDB.update(userToBeUpdated);
-                getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+                
 
             } catch (Exception ex) {
                 Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
