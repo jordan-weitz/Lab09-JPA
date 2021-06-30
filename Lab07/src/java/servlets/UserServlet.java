@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import models.User;
+import services.RoleService;
 import services.UserService;
 
 public class UserServlet extends HttpServlet {
@@ -30,7 +31,6 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-       
         UserDB userDB = new UserDB();
 
         String deleteButton = request.getParameter("deleteUser");
@@ -100,7 +100,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void generateUsers(UserDB userDB, HttpServletRequest request) {
-        UserService.generateAllUsers(userDB, request);
+        RoleService.generateAllUsers(userDB, request);
 
     }
 

@@ -50,14 +50,7 @@ public class UserService {
         }
     }
 
-    public static void generateAllUsers(UserDB userDB, HttpServletRequest request) {
-        try {
-            List<User> users = userDB.getAll();
-            request.setAttribute("users", users);
-        } catch (Exception ex) {
-            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+  
 
     public void addNewUser(String email, String firstName, String lastName, String password, UserDB userDB, HttpServletRequest request, int role) {
         User user = null;
