@@ -38,7 +38,7 @@ public class UserDB {
                 String password = rs.getString(5);
                 int role = rs.getInt(6);
 
-                User user = userService.addNewUser(email, active, firstName, lastName, password, role);
+                User user = new User(email, active, firstName, lastName, password, role);
                 users.add(user);
             }
         } finally {
