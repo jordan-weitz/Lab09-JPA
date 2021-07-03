@@ -12,13 +12,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Manage Users</title>
-        <link rel="stylesheet" href="./assets/styles/style.css">
+        <link type="text/css" rel="stylesheet" href="./assets/styles/style.css">
     </head>
     <body>
         <div class="flex-container">
                 <div class="flex-child">
 
-                    <h2>Add User</h2>
+                    <h1>Add User</h1>
                     <form method="post" action="user">
 
                         <label for="email">Email: </label>
@@ -82,11 +82,10 @@
                 </c:if>
 
                 </ul>               
-
             </div>
 
             <div class="flex-child">
-                    <h2>Edit User</h2>
+                    <h1>Edit User</h1>
                     <form method="post" action="user">
 
                         <input type="text" name="email" id="" value="${userEmail}" readonly>
