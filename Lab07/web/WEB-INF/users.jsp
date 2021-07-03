@@ -16,7 +16,6 @@
     </head>
     <body>
         <div class="flex-container">
-            <div class="center">
                 <div class="flex-child">
 
                     <h2>Add User</h2>
@@ -45,19 +44,18 @@
 
                     </form>
                 </div>
-            </div>
 
             <div class="flex-child">
                 <h1>Manage Users</h1>
                 <form method="post" action="user"  >
 
                     <div class="table_headers">
-                        <span>Email </span>
-                        <span>  First Name</span>
-                        <span> Last Name</span>
-                        <span> Role</span>
-                        <span>  Edit</span>
-                        <span>  Delete</span>
+                        <span>Email</span>
+                        <span>First Name</span>
+                        <span>Last Name</span>
+                        <span>Role</span>
+                        <span>Edit</span>
+                        <span>Delete</span>
                     </div>
                     <ul>
 
@@ -88,7 +86,6 @@
             </div>
 
             <div class="flex-child">
-                <div class="center">
                     <h2>Edit User</h2>
                     <form method="post" action="user">
 
@@ -115,7 +112,6 @@
                     </form>  
                     <p>${errorMessage}</p>
                 </div>
-            </div>
         </div>
     </body>
 </html>
