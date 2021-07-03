@@ -19,11 +19,15 @@ body {
 }
 
 .flex-child:first-child {
-    margin-right: 150px;
+    margin-right: 450px;
 }
 
 .center {
     text-align: center;
+}
+
+.edit-container {
+    margin-left: 450px;
 }
 
 input[type=text], input[type=password], input[type=email], select {

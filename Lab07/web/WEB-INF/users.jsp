@@ -16,8 +16,9 @@
     </head>
     <body>
         <div class="flex-container">
-            <div class="flex-child">
-                <div class="center">
+            <div class="center">
+                <div class="flex-child">
+
                     <h2>Add User</h2>
                     <form method="post" action="user">
 
@@ -43,37 +44,7 @@
                         <input type="hidden" name="saveNewUser" > 
 
                     </form>
-                    <br>
-
-                    <h2>Edit User</h2>
-                    <form method="post" action="user">
-
-                        <input type="text" name="email" id="" value="${userEmail}"  readonly>
-
-                        <br><br>
-                        <input type="text" name="firstName" id="" value="${userFirstName}" placeholder="First Name">
-                        <br><br>
-                        <input type="text" name="lastName" id=""value="${userLastName}" placeholder="Last Name">
-                        <br><br>
-                        <select name="account_type" id=""   value="${userRole}">
-
-                            <option value="1"    <c:if test = "${userRole ==1}">selected</c:if> >System Admin</option>
-                            <option value="2"  <c:if test = "${userRole ==2}">selected</c:if>>Regular User</option>
-                            <option value="3"  <c:if test = "${userRole ==3}">selected</c:if>>Company Admin</option>
-                            </select>
-
-                            <input type="submit" value="Save">
-                            <input type="hidden" name="saveUserInfo" value="${userEmail}">
-
-
-
-                    </form>
-                    <form method="post" action="user">
-                        <input type="submit" name="clearFields" value="Cancel">
-                    </form>  
-                    <p>${errorMessage}</p>
                 </div>
-
             </div>
 
             <div class="flex-child">
@@ -82,14 +53,13 @@
 
                     <div class="table_headers">
                         <span>Email </span>
-                        <span>  FirstName</span>
-                        <span> LastName</span>
+                        <span>  First Name</span>
+                        <span> Last Name</span>
                         <span> Role</span>
                         <span>  Edit</span>
                         <span>  Delete</span>
                     </div>
                     <ul>
-
 
                         <c:if test="${users.size()!=0}">
 
@@ -115,6 +85,36 @@
 
                 </ul>               
 
+            </div>
+
+            <div class="flex-child">
+                <div class="center">
+                    <h2>Edit User</h2>
+                    <form method="post" action="user">
+
+                        <input type="text" name="email" id="" value="${userEmail}" readonly>
+
+                        <br><br>
+                        <input type="text" name="firstName" id="" value="${userFirstName}" placeholder="First Name">
+                        <br><br>
+                        <input type="text" name="lastName" id=""value="${userLastName}" placeholder="Last Name">
+                        <br><br>
+                        <select name="account_type" id=""   value="${userRole}">
+
+                            <option value="1"    <c:if test = "${userRole ==1}">selected</c:if> >System Admin</option>
+                            <option value="2"  <c:if test = "${userRole ==2}">selected</c:if>>Regular User</option>
+                            <option value="3"  <c:if test = "${userRole ==3}">selected</c:if>>Company Admin</option>
+                            </select>
+
+                            <input type="submit" value="Save">
+                            <input type="hidden" name="saveUserInfo" value="${userEmail}">
+
+                    </form>
+                    <form method="post" action="user">
+                        <input type="submit" name="clearFields" value="Cancel">
+                    </form>  
+                    <p>${errorMessage}</p>
+                </div>
             </div>
         </div>
     </body>
