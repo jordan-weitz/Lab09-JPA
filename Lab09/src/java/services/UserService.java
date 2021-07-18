@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletRequest;
+import models.Role;
 import models.User;
 import servlets.UserServlet;
 
@@ -40,9 +41,10 @@ public class UserService {
         try {
             User userToBeUpdated = userDB.get(emailToBeUpdated);
             int role = Integer.parseInt(request.getParameter("account_type"));
+            Role role1 = new Role(role);
             userToBeUpdated.setFirstName(firstName);
             userToBeUpdated.setLastName(lastName);
-            userToBeUpdated.setRole(role);
+            userToBeUpdated.setRole(role1);
             userDB.update(userToBeUpdated);
 
         } catch (Exception ex) {
@@ -56,7 +58,7 @@ public class UserService {
         User user = null;
         if (email != null && firstName != null && lastName != null && password != null) {
 
-            user = new User(email, true, firstName, lastName, password, role);
+            user = new User(email, true, firstName, lastName, password);
 
         } else {
             request.setAttribute("errorMessage", "Please fill all fields");
